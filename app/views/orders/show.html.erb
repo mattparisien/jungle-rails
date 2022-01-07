@@ -18,8 +18,8 @@
     </tr>
   </thead>
   <tbody>
-  <% @order.line_items.each do |item| %>
-    <%= render 'line_item', product: item.product, quantity: item.quantity %>
+  <% @order.line_items.each do |order| %>
+    <%= render 'line_item', product: order.product, quantity: order.quantity %>
     <% end %>
 </tbody>
   <tfoot>
