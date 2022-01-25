@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Product, type: :model do
   describe 'Validations' do
 
-    it "tests validatation" do 
+    it "tests validation" do 
       @product = Product.new
       @category = Category.new
       @category.name = "Electronics"
@@ -69,6 +69,7 @@ RSpec.describe Product, type: :model do
       @product.price_cents = 99555 
       @product.valid? 
       expect(@product.errors[:price_cents]).not_to  include("can't be blank")
+
     end
   end
 end
