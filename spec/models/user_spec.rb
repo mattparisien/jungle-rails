@@ -17,15 +17,15 @@ RSpec.describe User, type: :model do
          user = User.new
          user.name = "Matt"
          user.email = 'hello@testing.com'
-         user.password = 'lovebird'
-         user.password_confirmation = 'lovebird'
+         user.password = 'bird'
+         user.password_confirmation = 'bird'
          expect(user).to be_invalid
          
          user = User.new
          user.name = "name"
          user.email = 'test@test.com'
-         user.password = 'bird'
-         user.password_confirmation = 'bird'
+         user.password = 'lovebird'
+         user.password_confirmation = 'lovebird'
          expect(user).to be_valid
     end
 
