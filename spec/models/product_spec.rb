@@ -14,5 +14,19 @@ RSpec.describe Product, type: :model do
 
       expect(@product.valid?).to be true
     end    
+
+    it "should have a valid name" do
+      
+      @product = Product.new
+      @product.name = nil
+      @product.valid?
+      expect(@product.errors[:name]).to  include("can't be blank")
+      
+      @product.name = 'Red Bookshelf'
+      @product.valid? 
+      expect(@product.errors[:name]).not_to  include("can't be blank")
+    end
+
+    
   end
 end
