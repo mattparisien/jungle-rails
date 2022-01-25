@@ -69,6 +69,7 @@ RSpec.describe Product, type: :model do
       @product.price_cents = 99555 
       @product.valid? 
       expect(@product.errors[:price_cents]).not_to  include("can't be blank")
+      
     end
   end
 end
