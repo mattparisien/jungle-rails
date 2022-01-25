@@ -16,7 +16,6 @@ RSpec.describe Product, type: :model do
     end    
 
     it "should have a valid name" do
-      
       @product = Product.new
       @product.name = nil
       @product.valid?
@@ -26,6 +25,31 @@ RSpec.describe Product, type: :model do
       @product.valid? 
       expect(@product.errors[:name]).not_to  include("can't be blank")
     end
+
+    it "should have a valid name" do
+      @product = Product.new
+      @product.name = nil
+      @product.valid?
+      expect(@product.errors[:name]).to  include("can't be blank")
+      
+      @product.name = 'Red Bookshelf'
+      @product.valid? 
+      expect(@product.errors[:name]).not_to  include("can't be blank")
+    end
+
+    it "should have a valid quantity" do
+      
+      @product = Product.new
+      @product.quantity = nil 
+      @product.valid?
+      expect(@product.errors[:quantity]).to  include("can't be blank")
+      
+      @product.quantity = 10 
+      @product.valid? 
+      expect(@product.errors[:quantity]).not_to  include("can't be blank")
+    end
+
+
 
     
   end
