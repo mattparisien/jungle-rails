@@ -73,6 +73,17 @@ RSpec.describe User, type: :model do
     expect(user.errors[:name]).not_to include("can't be blank")
   end
 
+  it "should fail if email is not entered by user" do
+    
+    user = User.new(email: nil)
+    expect(user).to be_invalid
+    
+    user.email = 'hello@testing.com'
+    user.valid?
+    expect(user.errors[:email]).not_to include("can't be blank")
+  end
+
+
 
 
   describe '.authenticate_with_credentials' do
