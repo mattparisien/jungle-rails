@@ -63,6 +63,17 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password_confirmation]).to be_present
   end
 
+  it "should fail if name is not entered by user" do
+    
+    user = User.new(name: nil)
+    expect(user).to be_invalid
+    
+    user.name = 'Matt'
+    user.valid? 
+    expect(user.errors[:name]).not_to include("can't be blank")
+  end
+
+
 
   describe '.authenticate_with_credentials' do
     it 'should fail if the email and password do not correspond to a user' do
