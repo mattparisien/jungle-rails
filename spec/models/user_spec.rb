@@ -76,6 +76,19 @@ RSpec.describe User, type: :model do
     expect(user).not_to be(nil)
   end
 
+  it 'should fail if the email and password do not correspond to a user' do
+    user = User.new(
+      name: 'name',
+      email: 'hello@testing.com',
+      password: 'lovebird',
+      password_confirmation: 'lovebird'
+    )
+    user.save
+
+    user = User.authenticate_with_credentials('hey@google.com', 'lovebird')
+    expect(user).to be(nil)
+  end
+
   it 'should not fail when spaces exist in email' do
     user = User.new(
       name: 'testName',
