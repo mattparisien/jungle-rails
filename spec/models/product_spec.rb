@@ -37,6 +37,18 @@ RSpec.describe Product, type: :model do
       expect(@product.errors[:name]).not_to  include("can't be blank")
     end
 
+    it "should have a valid category" do
+      @category = Category.new
+      @product = Product.new
+      @product.category = nil
+      @product.valid?
+      expect(@product.errors[:category]).to  include("can't be blank")
+      
+      @product.category = @category
+      @product.valid?
+      expect(@product.errors[:category]).not_to  include("can't be blank")
+    end
+
     it "should have a valid quantity" do
       @product = Product.new
       @product.quantity = nil 
@@ -58,9 +70,5 @@ RSpec.describe Product, type: :model do
       @product.valid? 
       expect(@product.errors[:price_cents]).not_to  include("can't be blank")
     end
-
-
-
-    
   end
 end
