@@ -23,12 +23,34 @@ RSpec.describe User, type: :model do
          
          user = User.new
          user.name = "name"
-         user.email = 'test@test.com'
+         user.email = 'hello@testing.com'
          user.password = 'lovebird'
          user.password_confirmation = 'lovebird'
          expect(user).to be_valid
     end
 
   end
+
+
+  it 'checks to see if email does not exist in database' do
+    user = User.new
+    user.name = 'name'
+    user.email = 'hello@testing.com'
+    user.password = 'lovebird'
+    user.password_confirmation = 'lovebird'
+
+    user.save
+  
+    anotherUser = User.new
+    anotherUser.name = 'name'
+    anotherUser.email = 'hello@testing.com'
+    anotherUser.password = 'lovebird'
+    anotherUser.password_confirmation = 'lovebird'
+
+    anotherUser.save
+  
+    expect(anotherUser).to be_invalid
+  end
+
   
 end
