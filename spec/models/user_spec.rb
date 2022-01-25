@@ -52,5 +52,16 @@ RSpec.describe User, type: :model do
     expect(anotherUser).to be_invalid
   end
 
+  it 'checks to see if passwords do not match' do
+    user = User.new(
+        name: 'testName',
+        email: 'hello@testing.com',
+        password: 'lovebird',
+        password_confirmation: 'lovebirdsss'
+      )
+      user.valid?
+      expect(user.errors[:password_confirmation]).to be_present
+  end
+
   
 end
