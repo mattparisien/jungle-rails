@@ -63,59 +63,58 @@ RSpec.describe User, type: :model do
       expect(user.errors[:password_confirmation]).to be_present
   end
 
-  it 'should not fail with caps in email' do
-    user = User.new(
-      name: 'name',
-      email: 'hello@testing.com',
-      password: 'lovebird',
-      password_confirmation: 'lovebird'
-    )
-    user.save
 
-    user = User.authenticate_with_credentials('HeLLO@tEstING.com', 'lovebird')
-    expect(user).not_to be(nil)
-  end
-
-  it 'should fail if the email and password do not correspond to a user' do
-    user = User.new(
-      name: 'name',
-      email: 'hello@testing.com',
-      password: 'lovebird',
-      password_confirmation: 'lovebird'
-    )
-    user.save
-
-    user = User.authenticate_with_credentials('hey@google.com', 'lovebird')
-    expect(user).to be(nil)
-  end
-
-  it 'should pass if the email and password correspond to a user in db' do
-    user = User.new(
-      name: 'name',
-      email: 'hello@testing.com',
-      password: 'lovebird',
-      password_confirmation: 'lovebird'
-    )
-    user.save
-
-    user = User.authenticate_with_credentials('hello@testing.com', 'lovebird')
-    expect(user).not_to be(nil)
-  end
-
+  describe '.authenticate_with_credentials' do
+    it 'should fail if the email and password do not correspond to a user' do
+      user = User.new(
+        name: 'name',
+        email: 'hello@testing.com',
+        password: 'lovebird',
+        password_confirmation: 'lovebird'
+      )
+      user.save
   
-
-  it 'should not fail when spaces exist in email' do
-    user = User.new(
-      name: 'testName',
-      email: 'hello@testing.com',
-      password: 'lovebird',
-      password_confirmation: 'lovebird'
-    )
-    user.save
-
-    user = User.authenticate_with_credentials('  hello@testing.com ', 'lovebird')
-    expect(user).not_to be(nil)
-  end
-
+      user = User.authenticate_with_credentials('hey@google.com', 'lovebird')
+      expect(user).to be(nil)
+    end
   
+    it 'should pass if the email and password correspond to a user in db' do
+      user = User.new(
+        name: 'name',
+        email: 'hello@testing.com',
+        password: 'lovebird',
+        password_confirmation: 'lovebird'
+      )
+      user.save
+  
+      user = User.authenticate_with_credentials('hello@testing.com', 'lovebird')
+      expect(user).not_to be(nil)
+    end
+
+    it 'should not fail when spaces exist in email' do
+      user = User.new(
+        name: 'testName',
+        email: 'hello@testing.com',
+        password: 'lovebird',
+        password_confirmation: 'lovebird'
+      )
+      user.save
+  
+      user = User.authenticate_with_credentials('  hello@testing.com ', 'lovebird')
+      expect(user).not_to be(nil)
+    end
+
+    it 'should not fail with caps in email' do
+      user = User.new(
+        name: 'name',
+        email: 'hello@testing.com',
+        password: 'lovebird',
+        password_confirmation: 'lovebird'
+      )
+      user.save
+  
+      user = User.authenticate_with_credentials('HeLLO@tEstING.com', 'lovebird')
+      expect(user).not_to be(nil)
+    end
+  end
 end
